@@ -8,7 +8,9 @@ defmodule SitemapBuilder do
   ## Usage
 
       SitemapBuilder.new("https://example.com")
+      |> SitemapBuilder.comment("Homepage")
       |> SitemapBuilder.add(%SitemapBuilder{url: "/en", lastmod: ~D[2026-01-01]})
+      |> SitemapBuilder.comment("Posts")
       |> SitemapBuilder.add(posts, &%SitemapBuilder{url: "/posts/\#{&1.slug}", lastmod: &1.updated_at})
       |> SitemapBuilder.generate()
 
@@ -40,6 +42,11 @@ defmodule SitemapBuilder do
     {host, sitemap_list ++ [sitemap]}
   end
 
+  @doc "Inserts an XML comment into the sitemap output. Useful for grouping sections."
+  def comment({host, sitemap_list}, text) when is_binary(text) do
+    {host, sitemap_list ++ [{:comment, text}]}
+  end
+
   @doc "Renders the sitemap to an XML string."
   def generate({host, sitemap_list}) when is_list(sitemap_list) do
     """
@@ -47,6 +54,10 @@ defmodule SitemapBuilder do
     <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     #{Enum.map(sitemap_list, &generate_entry(host, &1))}</urlset>
     """
+  end
+
+  defp generate_entry(_host, {:comment, text}) do
+    "<!-- #{text} -->\n"
   end
 
   defp generate_entry(host, %SitemapBuilder{url: url, lastmod: lastmod}) do

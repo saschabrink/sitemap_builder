@@ -47,6 +47,38 @@ defmodule SitemapBuilderTest do
     end
   end
 
+  describe "comment/2" do
+    test "adds a comment entry to the builder" do
+      {_host, entries} =
+        SitemapBuilder.new("https://example.com")
+        |> SitemapBuilder.comment("Homepage")
+
+      assert entries == [{:comment, "Homepage"}]
+    end
+
+    test "comment appears in generated XML" do
+      xml =
+        SitemapBuilder.new("https://example.com")
+        |> SitemapBuilder.comment("Homepage")
+        |> SitemapBuilder.add(%SitemapBuilder{url: "/en", lastmod: ~D[2026-01-01]})
+        |> SitemapBuilder.generate()
+
+      assert xml =~ "<!-- Homepage -->"
+    end
+
+    test "comment appears before its section entries" do
+      xml =
+        SitemapBuilder.new("https://example.com")
+        |> SitemapBuilder.comment("Homepage")
+        |> SitemapBuilder.add(%SitemapBuilder{url: "/en", lastmod: ~D[2026-01-01]})
+        |> SitemapBuilder.generate()
+
+      comment_pos = :binary.match(xml, "<!-- Homepage -->") |> elem(0)
+      loc_pos = :binary.match(xml, "<loc>") |> elem(0)
+      assert comment_pos < loc_pos
+    end
+  end
+
   describe "generate/1" do
     test "renders valid XML with loc and lastmod" do
       xml =

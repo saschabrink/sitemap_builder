@@ -23,7 +23,9 @@ end
 ```elixir
 sitemap_xml =
   SitemapBuilder.new(MyAppWeb.Endpoint.url())
+  |> SitemapBuilder.comment("Homepage")
   |> SitemapBuilder.add(%SitemapBuilder{url: "/en", lastmod: ~D[2026-01-01]})
+  |> SitemapBuilder.comment("Posts")
   |> SitemapBuilder.add(posts, &%SitemapBuilder{url: "/posts/#{&1.slug}", lastmod: &1.updated_at})
   |> SitemapBuilder.generate()
 
@@ -38,6 +40,19 @@ Each entry is a `%SitemapBuilder{}` with two required fields:
 
 - `:url` — path relative to the host (e.g. `"/en/about"`)
 - `:lastmod` — accepts `Date`, `DateTime`, or an Ecto datetime tuple
+
+### Comments
+
+Use `comment/2` to insert XML comments between sections:
+
+```elixir
+SitemapBuilder.new(url)
+|> SitemapBuilder.comment("Static pages")
+|> SitemapBuilder.add(%SitemapBuilder{url: "/en", lastmod: ~D[2026-01-01]})
+|> SitemapBuilder.comment("Blog posts")
+|> SitemapBuilder.add(posts, &%SitemapBuilder{url: "/posts/#{&1.slug}", lastmod: &1.updated_at})
+|> SitemapBuilder.generate()
+```
 
 ## License
 

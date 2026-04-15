@@ -1,5 +1,10 @@
 # Changelog
 
+## [0.1.1] - 2026-04-15
+
+### Added
+- `comment/2` — inserts an XML comment into the sitemap output for grouping sections
+
 ## [0.1.0] - 2026-04-14
 
 ### Added

@@ -11,6 +11,7 @@ defmodule SitemapBuilder.MixProject do
       elixir: "~> 1.14",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
+      aliases: aliases(),
       description: description(),
       package: package(),
       name: "SitemapBuilder",
@@ -26,6 +27,20 @@ defmodule SitemapBuilder.MixProject do
 
   def application do
     [extra_applications: [:logger]]
+  end
+
+  def cli do
+    [preferred_envs: [precommit: :test]]
+  end
+
+  defp aliases do
+    [
+      precommit: [
+        "compile --warning-as-errors",
+        "format --check-formatted",
+        "test"
+      ]
+    ]
   end
 
   defp deps do

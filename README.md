@@ -1,5 +1,10 @@
 # SitemapBuilder
 
+[![Hex.pm](https://img.shields.io/hexpm/v/sitemap_builder.svg)](https://hex.pm/packages/sitemap_builder)
+[![Hexdocs](https://img.shields.io/badge/hex-docs-purple.svg)](https://hexdocs.pm/sitemap_builder)
+[![CI](https://github.com/saschabrink/sitemap_builder/actions/workflows/ci.yml/badge.svg)](https://github.com/saschabrink/sitemap_builder/actions/workflows/ci.yml)
+[![License](https://img.shields.io/hexpm/l/sitemap_builder.svg)](https://github.com/saschabrink/sitemap_builder/blob/main/LICENSE)
+
 Minimal, pipeline-friendly XML sitemap generator.
 
 ## Why

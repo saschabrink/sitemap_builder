@@ -1,8 +1,8 @@
 defmodule SitemapBuilder.MixProject do
   use Mix.Project
 
-  @version "0.1.2"
-  @source_url "https://github.com/exfoundry/sitemap_builder"
+  @version "0.1.3"
+  @source_url "https://github.com/saschabrink/sitemap_builder"
 
   def project do
     [

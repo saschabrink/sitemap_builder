@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.3] - 2026-06-12
+
+### Changed
+- Repository moved to https://github.com/saschabrink/sitemap_builder — package
+  metadata, docs links, and license now reflect the maintainer's real name.
+- CI tests against Elixir 1.19 and 1.20 via the Nix flake dev shells.
+- README badges for Hex version, docs, CI status, and license.
+
 ## [0.1.2] - 2026-04-18
 
 ### Added
